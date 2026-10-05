@@ -14,3 +14,6 @@ CREATE TABLE IF NOT EXISTS login_limits (
  attempts INTEGER NOT NULL,
  PRIMARY KEY(key,bucket)
 );
+
+-- Compatível com o banco que já foi criado na primeira versão.
+ALTER TABLE animals ADD COLUMN IF NOT EXISTS sex TEXT NOT NULL DEFAULT '';

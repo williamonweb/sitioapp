@@ -1,6 +1,21 @@
+## Atualização 2.1: macho ou fêmea
+
+Copie os arquivos deste ZIP sobre a pasta do projeto existente, sem apagar `.git`
+ou `.env.local`. Rode git add -A, git commit e git push. Gere um NOVO APK em
+Actions > Gerar APK Android > Run workflow e baixe o artefato dessa execução.
+
+Se já usa Neon, execute ATUALIZAR_SEXO_NEON.sql no SQL Editor ANTES de sincronizar.
+A atualização preserva os registros antigos, com sexo Não informado. Para um
+banco novo, BANCO_NEON.sql já inclui a alteração.
+
+Faça backup com fotos antes de atualizar o aplicativo. Tente instalar o APK por
+cima do existente. APKs debug gerados em execuções diferentes podem ter assinaturas
+diferentes. Se o Android recusar a atualização, guarde/exporte o backup primeiro;
+só depois reinstale e importe o backup. Não desinstale sem uma cópia dos pendentes.
+
 # Chips Sítio — cadastro, app Android e relatórios
 
-Cadastro por perguntas: chip obrigatório, nome opcional, cor, bloco, foto
+Cadastro por perguntas: chip obrigatório, nome opcional, cor, sexo, bloco, foto
 opcional e revisão. Registros únicos por chip, funcionamento offline,
 sincronização protegida por senha e relatório Excel com filtro por bloco/data.
 
