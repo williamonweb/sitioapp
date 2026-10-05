@@ -1,0 +1,1 @@
+export default {async rewrites(){return [{source:'/',destination:'/index.html'},{source:'/relatorios',destination:'/index.html'}]},async headers(){return [{source:'/api/:path*',headers:[{key:'Cache-Control',value:'no-store'}]},{source:'/:path*',headers:[{key:'X-Content-Type-Options',value:'nosniff'},{key:'Referrer-Policy',value:'no-referrer'}]}]}};
