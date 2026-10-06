@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {createHash} from 'node:crypto';
+import {appUpdateBundle,updateFiles} from '../lib/app-update.mjs';
+import {GET} from '../app/api/app-update/route.js';
+test('update bundle preserves every byte and changes version when content changes',async()=>{const dir=await mkdtemp(join(tmpdir(),'sitio-update-'));try{for(const name of updateFiles)await writeFile(join(dir,name),'file '+name+' • ação');const full=await appUpdateBundle(dir,true),info=await appUpdateBundle(dir,false);assert.equal(full.version,info.version);assert.equal(full.files.length,6);assert.equal(full.minNativeVersion,9);assert.ok(info.files.every(f=>!('data' in f)));for(const f of full.files){const bytes=Buffer.from(f.data,'base64');assert.deepEqual(bytes,await readFile(join(dir,f.name)));assert.equal(bytes.length,f.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),f.sha256)}await writeFile(join(dir,'app.js'),'new interface');assert.notEqual((await appUpdateBundle(dir)).version,full.version)}finally{await rm(dir,{recursive:true,force:true})}});
+test('update endpoint rejects unauthenticated downloads',async()=>{assert.equal((await GET(new Request('https://example.test/api/app-update?download=1'))).status,401)});

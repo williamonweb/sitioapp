@@ -1,3 +1,28 @@
+## Conexão lembrada no Android
+
+Após conectar uma vez no APK 2.8, a senha é guardada com AES-GCM e chave
+do Android Keystore, e o campo é preenchido ao abrir Conexão. O token continua
+persistido; abrir a aba não exige novo login. Em Desconectar, a senha lembrada
+é removida. Na web, o token fica salvo e a conexão pode ser sincronizada sem
+digitar novamente enquanto a sessão estiver válida.
+
+## Atualizações dentro do APK (versão 2.8)
+
+Instale este APK uma vez e publique o projeto atualizado na Vercel. Em Conexão,
+toque em Buscar e instalar atualização. O app usa a conexão HTTPS autenticada
+configurada para baixar todas as telas, estilos, ícones e exportador Excel.
+Cada arquivo passa por verificação SHA-256 e tamanho; a versão só é ativada
+após concluir o download inteiro. Registros e fotos ficam em outro diretório.
+Se não houver internet ou falhar a verificação, mantém a interface atual.
+Se a interface baixada não iniciar, restaura automaticamente a original.
+Também há um botão para restaurar a interface original, preservando os registros.
+
+Depois, mudanças apenas no public/ são publicadas via git push/Vercel e baixadas
+pelo botão, sem novo APK. Mudanças Java, permissões, câmera nativa ou bridge exigem
+novo APK: atualize minNativeVersion em lib/app-update.mjs quando forem incompatíveis.
+Mudanças no banco continuam exigindo executar o SQL no Neon.
+O app baixa somente da origem que você configurou em Conexão, sem redirecionamentos.
+
 ## Editar e excluir (versão 2.7)
 
 Em Registros, cada animal possui Editar e Excluir. A edição mantém o número
