@@ -1,3 +1,26 @@
+## Editar e excluir (versão 2.7)
+
+Em Registros, cada animal possui Editar e Excluir. A edição mantém o número
+do chip e a data original, e permite corrigir nome, cor, sexo, bloco, canil e foto.
+Excluir exige confirmação e remove o animal das listas, Excel e CSV.
+As mudanças são salvas primeiro no aparelho e enviadas ao banco com o app aberto.
+Exclusões ficam marcadas no banco e no backup para impedir que o animal reapareça.
+Cadastrar novamente o mesmo chip reutiliza o registro excluído.
+Versões de registro impedem que uma edição antiga substitua uma alteração mais nova;
+conflitos permanecem locais e são informados na sincronização.
+
+Execute ATUALIZAR_EDICAO_EXCLUSAO_NEON.sql no Neon ANTES de publicar. Atualize
+a Vercel e gere um novo APK. Todos os aparelhos devem usar esta versão para
+respeitar exclusões e edições. Faça backup com fotos antes de atualizar.
+
+## Fotos dentro do Excel (versão 2.6)
+
+A aba Animais agora mostra as imagens JPEG incorporadas na coluna Foto,
+com tamanho proporcional e linhas maiores. O arquivo pode ser compartilhado
+sem mandar as fotos separadamente. Animais sem foto ficam como Sem foto.
+Gere um novo APK para usar a mudança no Android e publique o commit na Vercel
+para atualizar a versão web. Nenhuma alteração de banco é necessária.
+
 ## Ícone do aplicativo (versão 2.5)
 
 Ícone de patinha branca com fundo verde, adaptável ao formato do launcher Android,
@@ -18,7 +41,7 @@ Copie este projeto sobre o atual e gere um novo APK pelo GitHub Actions.
 Em Relatórios, toque em Baixar Excel. A planilha usa os registros já cadastrados
 com os filtros escolhidos, título, data de emissão, cabeçalhos fixos, filtros,
 linhas alternadas, impressão em A4 e resumo por bloco com totais por sexo.
-As fotos são referenciadas por nome de arquivo; os backups mantêm as imagens.
+As fotos JPEG ficam incorporadas na coluna Foto da planilha, junto aos dados.
 Inclui a abertura direta da câmera da versão 2.2.
 
 ## Câmera direta no Android (versão 2.2)
@@ -54,7 +77,7 @@ sincronização protegida por senha e relatório Excel com filtro por bloco/data
 - App Android nativo com interface local, arquivos internos e câmera.
 - Página de relatórios em `/relatorios`, também acessível no app.
 - Excel `.xlsx`: aba Animais e aba Resumo por bloco. Chip como texto,
-  datas como datas, filtros e cabeçalho fixo. Inclui o nome do arquivo da foto;
+  datas como datas, filtros e cabeçalho fixo. Inclui a imagem na coluna Foto;
   as imagens completas ficam no app, no banco e no backup JSON.
 - Exportação/importação de backup com fotos; aceita o JSON da primeira versão.
 - Código do Android e workflow para gerar APK. Este ZIP NÃO contém APK compilado.

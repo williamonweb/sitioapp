@@ -4,4 +4,6 @@ await db`CREATE TABLE IF NOT EXISTS animals (seq BIGSERIAL PRIMARY KEY,id UUID U
 await db`CREATE TABLE IF NOT EXISTS login_limits (key TEXT NOT NULL,bucket BIGINT NOT NULL,attempts INTEGER NOT NULL,PRIMARY KEY(key,bucket))`;
 await db`ALTER TABLE animals ADD COLUMN IF NOT EXISTS sex TEXT NOT NULL DEFAULT ''`;
 await db`ALTER TABLE animals ADD COLUMN IF NOT EXISTS kennel TEXT NOT NULL DEFAULT '';`;
+await db`ALTER TABLE animals ADD COLUMN IF NOT EXISTS deleted BOOLEAN NOT NULL DEFAULT false;`;
+await db`ALTER TABLE animals ADD COLUMN IF NOT EXISTS revision INTEGER NOT NULL DEFAULT 1;`;
 console.log('Banco configurado.');
