@@ -17,3 +17,5 @@ CREATE TABLE IF NOT EXISTS login_limits (
 
 -- Compatível com o banco que já foi criado na primeira versão.
 ALTER TABLE animals ADD COLUMN IF NOT EXISTS sex TEXT NOT NULL DEFAULT '';
+
+ALTER TABLE animals ADD COLUMN IF NOT EXISTS kennel TEXT NOT NULL DEFAULT '';

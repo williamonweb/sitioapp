@@ -1,3 +1,18 @@
+## Ícone do aplicativo (versão 2.5)
+
+Ícone de patinha branca com fundo verde, adaptável ao formato do launcher Android,
+incluindo ícone monocromático para temas compatíveis. Gere um novo APK para vê-lo.
+Mantém o cadastro de bloco/canil, câmera direta e relatórios profissionais.
+
+## Bloco e canil separados (versão 2.4)
+
+O cadastro pergunta o bloco (ex.: A) e depois o canil (ex.: 2). Ambos são
+obrigatórios nos novos registros. Registros antigos permanecem preservados,
+com canil Não informado. CSV, Excel, backups e sincronização incluem o canil.
+Relatórios filtram bloco e canil, e o resumo agrupa cada combinação.
+Se já usa Neon, execute ATUALIZAR_CANIL_NEON.sql antes de sincronizar.
+Copie este projeto sobre o atual e gere um novo APK pelo GitHub Actions.
+
 ## Excel profissional (versão 2.3)
 
 Em Relatórios, toque em Baixar Excel. A planilha usa os registros já cadastrados
