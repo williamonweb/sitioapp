@@ -1,3 +1,17 @@
+## Excel profissional (versão 2.3)
+
+Em Relatórios, toque em Baixar Excel. A planilha usa os registros já cadastrados
+com os filtros escolhidos, título, data de emissão, cabeçalhos fixos, filtros,
+linhas alternadas, impressão em A4 e resumo por bloco com totais por sexo.
+As fotos são referenciadas por nome de arquivo; os backups mantêm as imagens.
+Inclui a abertura direta da câmera da versão 2.2.
+
+## Câmera direta no Android (versão 2.2)
+
+No APK, o botão **Tirar foto do animal** abre diretamente o aplicativo de câmera.
+Tire a foto e confirme para vê-la no cadastro. Cancelar mantém a foto anterior.
+No site pelo navegador, a abertura depende do suporte do navegador ao capture.
+
 ## Atualização 2.1: macho ou fêmea
 
 Copie os arquivos deste ZIP sobre a pasta do projeto existente, sem apagar `.git`

@@ -48,22 +48,27 @@ public class MainActivity extends Activity {
   });
   web.setWebChromeClient(new WebChromeClient(){
    @Override public boolean onShowFileChooser(WebView view,ValueCallback<Uri[]> callback,FileChooserParams params){
-    if(chooserCallback!=null)chooserCallback.onReceiveValue(null);chooserCallback=callback;cameraUri=null;cameraFile=null;
+    if(chooserCallback!=null)chooserCallback.onReceiveValue(null);chooserCallback=callback;
+    if(cameraFile!=null)cameraFile.delete();cameraUri=null;cameraFile=null;
     String accept=String.join(",",params.getAcceptTypes());boolean image=accept.contains("image");
     Intent files=new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType(image?"image/*":"application/json");
     Intent chooser=Intent.createChooser(files,image?"Foto do animal":"Escolher backup");
-    if(image)try{
+    if(image&&params.isCaptureEnabled())try{
      File folder=getExternalFilesDir(Environment.DIRECTORY_PICTURES);cameraFile=File.createTempFile("animal-",".jpg",folder);
      cameraUri=FileProvider.getUriForFile(MainActivity.this,getPackageName()+".files",cameraFile);
      Intent camera=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);camera.putExtra(MediaStore.EXTRA_OUTPUT,cameraUri);camera.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);camera.setClipData(ClipData.newRawUri("foto",cameraUri));
-     if(camera.resolveActivity(getPackageManager())!=null)chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS,new Intent[]{camera});
-    }catch(Exception ignored){}
+     startActivityForResult(camera,PICK_FILE);return true;
+    }catch(Exception e){
+     if(cameraFile!=null)cameraFile.delete();cameraUri=null;cameraFile=null;
+     chooserCallback=null;callback.onReceiveValue(null);
+     Toast.makeText(MainActivity.this,"Não foi possível abrir a câmera. Confira se há um aplicativo de câmera instalado e tente novamente.",Toast.LENGTH_LONG).show();return true;
+    }
     try{startActivityForResult(chooser,PICK_FILE);return true;}catch(Exception e){chooserCallback=null;callback.onReceiveValue(null);return false;}
    }
   });
   web.loadUrl("https://"+HOST+"/assets/index.html");
  }
- @Override protected void onActivityResult(int request,int result,Intent data){super.onActivityResult(request,result,data);if(request!=PICK_FILE||chooserCallback==null)return;Uri[] values=null;if(result==RESULT_OK){if(data!=null&&data.getData()!=null)values=new Uri[]{data.getData()};else if(cameraUri!=null&&cameraFile!=null&&cameraFile.length()>0)values=new Uri[]{cameraUri};}chooserCallback.onReceiveValue(values);chooserCallback=null;}
+ @Override protected void onActivityResult(int request,int result,Intent data){super.onActivityResult(request,result,data);if(request!=PICK_FILE||chooserCallback==null)return;Uri[] values=null;if(result==RESULT_OK){if(cameraUri!=null&&cameraFile!=null&&cameraFile.length()>0)values=new Uri[]{cameraUri};else if(data!=null&&data.getData()!=null)values=new Uri[]{data.getData()};}chooserCallback.onReceiveValue(values);chooserCallback=null;}
  @Override public void onBackPressed(){web.evaluateJavascript("navigate('cad')",null);}
  private String fail(Exception e){return "{\"error\":\"Não foi possível acessar os arquivos do app. Confira o espaço livre.\"}";}
  public class StoreBridge {
